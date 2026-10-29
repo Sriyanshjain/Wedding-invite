@@ -1,0 +1,6 @@
+Website version: 28
+Export date: 29 October 2026
+Source commit: 9e36b3f2cbf3b38fab83a4eae6d492e2a69f2b30
+Live site: https://sriyansh-ki-shrishti.deloitte.chatgpt.site
+All dist/ files are copied unchanged from this source version.
+The test loader is adapted for use outside the authoring environment.

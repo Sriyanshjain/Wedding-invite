@@ -1,0 +1,14 @@
+{
+  "name": "sriyansh-shrishti-wedding-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Editable static wedding invitation for Sriyansh and Shrishti.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:core": "node --test tests/invitation-core.test.mjs"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.100"
+  }
+}
