@@ -339,8 +339,9 @@ updateMusicState();
   const form = document.getElementById('rsvp-form');
   if (!form) return;
   const guestsField = document.getElementById('rsvp-guests-field');
-  const successEl  = document.getElementById('rsvp-success');
-  const submitBtn  = form.querySelector('.rsvp-submit');
+  const successYes  = document.getElementById('rsvp-success-yes');
+  const successNo   = document.getElementById('rsvp-success-no');
+  const submitBtn   = form.querySelector('.rsvp-submit');
 
   form.querySelectorAll('.rsvp-radio').forEach(radio => {
     radio.addEventListener('change', () => {
@@ -362,8 +363,9 @@ updateMusicState();
         headers: { Accept: 'application/json' }
       });
       if (res.ok) {
+        const declining = form.querySelector('.rsvp-radio:checked')?.value === 'Regretfully declines';
         form.hidden = true;
-        successEl.hidden = false;
+        (declining ? successNo : successYes).hidden = false;
       } else {
         submitBtn.textContent = 'Something went wrong — try again';
         submitBtn.disabled = false;
