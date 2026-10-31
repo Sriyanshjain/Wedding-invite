@@ -333,3 +333,44 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden && (musicRequested || musicPlaying)) pauseMusic();
 });
 updateMusicState();
+
+// RSVP form
+(function () {
+  const form = document.getElementById('rsvp-form');
+  if (!form) return;
+  const guestsField = document.getElementById('rsvp-guests-field');
+  const successEl  = document.getElementById('rsvp-success');
+  const submitBtn  = form.querySelector('.rsvp-submit');
+
+  form.querySelectorAll('.rsvp-radio').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const declining = radio.value === 'Regretfully declines' && radio.checked;
+      guestsField.classList.toggle('rsvp-hidden', declining);
+      if (declining) document.getElementById('rsvp-guests').removeAttribute('required');
+      else document.getElementById('rsvp-guests').setAttribute('required', '');
+    });
+  });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        form.hidden = true;
+        successEl.hidden = false;
+      } else {
+        submitBtn.textContent = 'Something went wrong — try again';
+        submitBtn.disabled = false;
+      }
+    } catch {
+      submitBtn.textContent = 'Something went wrong — try again';
+      submitBtn.disabled = false;
+    }
+  });
+}());
